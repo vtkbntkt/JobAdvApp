@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Error_age_value</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Error_age_value</shortDescription>
+        <value>Age must be integer greater than or equal 18</value>
+    </labels>
+    <labels>
+        <fullName>Error_already_sent_posns</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Error_already_sent_posns</shortDescription>
+        <value>You already sent cv on positions below:</value>
+    </labels>
+    <labels>
+        <fullName>Error_city</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Error_city</shortDescription>
+        <value>Invalid city</value>
+    </labels>
+    <labels>
+        <fullName>Error_country_value</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Error_country_value</shortDescription>
+        <value>Invalid country</value>
+    </labels>
+    <labels>
+        <fullName>Error_experience_years_value</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Error_experience_years_value</shortDescription>
+        <value>Experience years must be 0 or positive integer</value>
+    </labels>
+    <labels>
+        <fullName>Error_first_name</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Error_first_name</shortDescription>
+        <value>First name cannot be empty</value>
+    </labels>
+    <labels>
+        <fullName>Error_last_name</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Error_last_name</shortDescription>
+        <value>Last name cannot be empty</value>
+    </labels>
+    <labels>
+        <fullName>Error_no_selected_ads</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Error_no_selected_ads</shortDescription>
+        <value>No selected job advertisements</value>
+    </labels>
+    <labels>
+        <fullName>Error_phone</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Error_phone_number</shortDescription>
+        <value>Invalid phone number</value>
+    </labels>
+    <labels>
+        <fullName>Error_postal_code</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Error_postal_code</shortDescription>
+        <value>Invalid postal code</value>
+    </labels>
+    <labels>
+        <fullName>Error_salary_value</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Error_salary_value</shortDescription>
+        <value>Salary must be integer greater than zero</value>
+    </labels>
+    <labels>
+        <fullName>Error_state_province</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Error_state_province</shortDescription>
+        <value>Invalid state/province</value>
+    </labels>
+    <labels>
+        <fullName>Error_street_address</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Error_street_address</shortDescription>
+        <value>Invalid street address</value>
+    </labels>
+    <labels>
+        <fullName>Exc_send_cv</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Exc_send_cv</shortDescription>
+        <value>Error to send resume</value>
+    </labels>
+     <labels>
+        <fullName>Msg_success_cv_send</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Msg_success_cv_send</shortDescription>
+        <value>The resume has been successfully sent</value>
+    </labels>
+     <labels>
+        <fullName>Exc_save_photo</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Exc_save_photo</shortDescription>
+        <value>Error to save photo</value>
+    </labels>
+    <labels>
+        <fullName>Filter_list_equal</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Filter_list_equal</shortDescription>
+        <value>EQUAL</value>
+    </labels>
+    <labels>
+        <fullName>Filter_list_less</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Filter_list_less</shortDescription>
+        <value>LESS</value>
+    </labels>
+    <labels>
+        <fullName>Filter_list_lessorequal</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Filter_list_lessorequal</shortDescription>
+        <value>LESS OR EQUAL</value>
+    </labels>
+    <labels>
+        <fullName>Filter_list_more</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Filter_list_more</shortDescription>
+        <value>MORE</value>
+    </labels>
+    <labels>
+        <fullName>Filter_list_moreorequal</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Filter_list_moreorequal</shortDescription>
+        <value>MORE OR EQUAL</value>
+    </labels>
+    <labels>
+        <fullName>Filter_list_notequal</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Filter_list_notequal</shortDescription>
+        <value>NOT EQUAL</value>
+    </labels>
+    <labels>
+        <fullName>ImageInvalidSize</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ImageInvalidSize</shortDescription>
+        <value>Photo size must be between 1 and 1048576 byte</value>
+    </labels>
+    <labels>
+        <fullName>ImageInvalidType</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ImageInvalidType</shortDescription>
+        <value>Only *.jpeg,*.gif,*.pjpeg,*.png</value>
+    </labels>
+    <labels>
+        <fullName>ImageNull</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ImageNull</shortDescription>
+        <value>Photo cannot be null</value>
+    </labels>
+    <labels>
+        <fullName>Invalid_email</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Invalid_email</shortDescription>
+        <value>Invalid email</value>
+    </labels>
+</CustomLabels>

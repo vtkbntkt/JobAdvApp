@@ -1,0 +1,54 @@
+<apex:page controller="JobAdvertisementListController" lightningStylesheets="true"> 
+      
+    <apex:form >  
+        
+        <apex:pageBlock title="Filter">
+            Salary is    
+            <apex:selectList value="{!advFilter.filterItems['salaryConditions'].values}" multiselect="false" size="1">
+                <apex:selectOptions value="{!advFilter.filterItems['salaryConditions'].options}"/>               
+            </apex:selectList>
+            <apex:inputText value="{!advFilter.filterItems['salaryValue'].value}" />
+            Job title:
+            <apex:inputText value="{!advFilter.filterItems['jobTitle'].value}"/>
+            Advertisement status:
+            <apex:selectList value="{!advFilter.filterItems['statusList'].values}" multiselect="true" size="2">
+                <apex:selectOptions value="{!advFilter.filterItems['statusList'].options}"/>
+            </apex:selectList>
+            <apex:commandButton value="Apply" action="{!applyFilters}" rerender="all_job_advertisement"/>
+            <apex:commandButton value="Clear" action="{!clearFilters}" />
+            
+            
+            
+        </apex:pageBlock>
+        
+        
+        <apex:pageBlock title="Job Advertisements" id="all_job_advertisement">
+                    <apex:pageMessages ></apex:pageMessages>
+            <apex:pageBlockTable value="{!wrappedAds}" var="wrappedadv">
+                <apex:column headerValue="Name">               
+                    <apex:outputLink value="/{!wrappedadv.adv.Id}">{!wrappedadv.adv.Name}</apex:outputLink>
+                </apex:column>           
+                <apex:column value="{!wrappedadv.adv.Status__c}"/>
+                <apex:column value="{!wrappedadv.adv.Salary_from__c}" />
+                <apex:column value="{!wrappedadv.adv.Salary_to__c}"/>               
+            </apex:pageBlockTable>
+            <apex:pageBlockButtons location="bottom">             
+                <apex:commandButton action="{! first}" value="First" reRender="all_job_advertisement"/>
+                <apex:commandButton action="{! Previous }" value="Previous" rendered="{! HasPrevious }" reRender="all_job_advertisement"/>
+                <apex:commandButton action="{! Next }" value="Next" rendered="{! HasNext }" reRender="all_job_advertisement"/>
+                <apex:commandButton action="{! last}" value="Last" reRender="all_job_advertisement"/>            
+            </apex:pageBlockButtons>
+            <p>Page: <apex:outputText value=" {!PageNumber} of {! CEILING(ResultSize / PageSize) }"/></p>
+            
+            Records per page:
+            <apex:selectList value="{! PageSize }" size="1">
+                <apex:selectOption itemValue="5" itemLabel="5"/>
+                <apex:selectOption itemValue="10" itemLabel="10"/>
+                <apex:selectOption itemValue="15" itemLabel="15"/>
+                <apex:selectOption itemValue="20" itemLabel="20"/>
+                <apex:selectOption itemValue="25" itemLabel="25"/>
+                <apex:actionSupport event="onchange" reRender="all_job_advertisement"/>
+            </apex:selectList>              
+        </apex:pageBlock>      
+    </apex:form>   
+</apex:page>

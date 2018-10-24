@@ -1,0 +1,262 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "Job_Advertisement__c",
+                "referenceId": "Job_Advertisement__cRef1"
+            },
+            "Salary_from__c": 50000,
+            "Location__c": "APAC",
+            "Status__c": "Active",
+            "Name": "Pega Developer",
+            "Salary_to__c": 75000
+        },
+        {
+            "attributes": {
+                "type": "Job_Advertisement__c",
+                "referenceId": "Job_Advertisement__cRef2"
+            },
+            "Salary_from__c": 120000,
+            "Location__c": "LATAM",
+            "Status__c": "On hold",
+            "Name": "In Room Dining Server"
+        },
+        {
+            "attributes": {
+                "type": "Job_Advertisement__c",
+                "referenceId": "Job_Advertisement__cRef3"
+            },
+            "Salary_from__c": 75000,
+            "Location__c": "EMEA",
+            "Status__c": "Active",
+            "Name": "Java developer",
+            "Salary_to__c": 90000
+        },
+        {
+            "attributes": {
+                "type": "Job_Advertisement__c",
+                "referenceId": "Job_Advertisement__cRef4"
+            },
+            "Salary_from__c": 90000,
+            "Location__c": "LATAM",
+            "Status__c": "Active",
+            "Name": "Trainee java",
+            "Salary_to__c": 120000
+        },
+        {
+            "attributes": {
+                "type": "Job_Advertisement__c",
+                "referenceId": "Job_Advertisement__cRef5"
+            },
+            "Salary_from__c": 50000,
+            "Location__c": "LATAM",
+            "Status__c": "Archive",
+            "Name": "Rigger",
+            "Salary_to__c": 75000
+        },
+        {
+            "attributes": {
+                "type": "Job_Advertisement__c",
+                "referenceId": "Job_Advertisement__cRef6"
+            },
+            "Salary_from__c": 75000,
+            "Location__c": "US",
+            "Status__c": "Archive",
+            "Name": "Restaurant Server",
+            "Salary_to__c": 90000
+        },
+        {
+            "attributes": {
+                "type": "Job_Advertisement__c",
+                "referenceId": "Job_Advertisement__cRef7"
+            },
+            "Salary_from__c": 90000,
+            "Location__c": "LATAM",
+            "Status__c": "Archive",
+            "Name": "Associate Trainee",
+            "Salary_to__c": 120000
+        },
+        {
+            "attributes": {
+                "type": "Job_Advertisement__c",
+                "referenceId": "Job_Advertisement__cRef8"
+            },
+            "Salary_from__c": 120000,
+            "Location__c": "LATAM",
+            "Status__c": "Archive",
+            "Name": "Excavator Operator"
+        },
+        {
+            "attributes": {
+                "type": "Job_Advertisement__c",
+                "referenceId": "Job_Advertisement__cRef9"
+            },
+            "Salary_from__c": 50000,
+            "Location__c": "US",
+            "Status__c": "Active",
+            "Name": "Dishwasher",
+            "Salary_to__c": 75000
+        },
+        {
+            "attributes": {
+                "type": "Job_Advertisement__c",
+                "referenceId": "Job_Advertisement__cRef10"
+            },
+            "Salary_from__c": 75000,
+            "Location__c": "US",
+            "Status__c": "Active",
+            "Name": "Server Assistant",
+            "Salary_to__c": 90000
+        },
+        {
+            "attributes": {
+                "type": "Job_Advertisement__c",
+                "referenceId": "Job_Advertisement__cRef11"
+            },
+            "Salary_from__c": 90000,
+            "Location__c": "US",
+            "Status__c": "Active",
+            "Name": "Accountant Assistant",
+            "Salary_to__c": 120000
+        },
+        {
+            "attributes": {
+                "type": "Job_Advertisement__c",
+                "referenceId": "Job_Advertisement__cRef12"
+            },
+            "Salary_from__c": 120000,
+            "Location__c": "EMEA",
+            "Status__c": "Active",
+            "Name": "Production Operator"
+        },
+        {
+            "attributes": {
+                "type": "Job_Advertisement__c",
+                "referenceId": "Job_Advertisement__cRef13"
+            },
+            "Salary_from__c": 50000,
+            "Location__c": "LATAM",
+            "Status__c": "On hold",
+            "Name": "Production Assistant",
+            "Salary_to__c": 75000
+        },
+        {
+            "attributes": {
+                "type": "Job_Advertisement__c",
+                "referenceId": "Job_Advertisement__cRef14"
+            },
+            "Salary_from__c": 75000,
+            "Location__c": "US",
+            "Status__c": "On hold",
+            "Name": "Production Assistant",
+            "Salary_to__c": 90000
+        },
+        {
+            "attributes": {
+                "type": "Job_Advertisement__c",
+                "referenceId": "Job_Advertisement__cRef15"
+            },
+            "Salary_from__c": 90000,
+            "Location__c": "EMEA",
+            "Status__c": "On hold",
+            "Name": "Assistant, TV Publicity",
+            "Salary_to__c": 120000
+        },
+        {
+            "attributes": {
+                "type": "Job_Advertisement__c",
+                "referenceId": "Job_Advertisement__cRef16"
+            },
+            "Salary_from__c": 120000,
+            "Location__c": "EMEA",
+            "Status__c": "On hold",
+            "Name": "Graphic Designer"
+        },
+        {
+            "attributes": {
+                "type": "Job_Advertisement__c",
+                "referenceId": "Job_Advertisement__cRef17"
+            },
+            "Salary_from__c": 50000,
+            "Location__c": "EMEA",
+            "Status__c": "Archive",
+            "Name": "Designer trainee",
+            "Salary_to__c": 75000
+        },
+        {
+            "attributes": {
+                "type": "Job_Advertisement__c",
+                "referenceId": "Job_Advertisement__cRef18"
+            },
+            "Salary_from__c": 75000,
+            "Location__c": "US",
+            "Status__c": "Archive",
+            "Name": "Designer assisatnt",
+            "Salary_to__c": 90000
+        },
+        {
+            "attributes": {
+                "type": "Job_Advertisement__c",
+                "referenceId": "Job_Advertisement__cRef19"
+            },
+            "Salary_from__c": 90000,
+            "Location__c": "EMEA",
+            "Status__c": "Archive",
+            "Name": "trainee developer",
+            "Salary_to__c": 120000
+        },
+        {
+            "attributes": {
+                "type": "Job_Advertisement__c",
+                "referenceId": "Job_Advertisement__cRef20"
+            },
+            "Salary_from__c": 120000,
+            "Location__c": "US",
+            "Status__c": "Archive",
+            "Name": "java trainee developer"
+        },
+        {
+            "attributes": {
+                "type": "Job_Advertisement__c",
+                "referenceId": "Job_Advertisement__cRef21"
+            },
+            "Salary_from__c": 120000,
+            "Location__c": "US",
+            "Status__c": "Active",
+            "Name": "Java trainee"
+        },
+        {
+            "attributes": {
+                "type": "Job_Advertisement__c",
+                "referenceId": "Job_Advertisement__cRef22"
+            },
+            "Salary_from__c": 50000,
+            "Location__c": "LATAM",
+            "Status__c": "On hold",
+            "Name": "Server",
+            "Salary_to__c": 75000
+        },
+        {
+            "attributes": {
+                "type": "Job_Advertisement__c",
+                "referenceId": "Job_Advertisement__cRef23"
+            },
+            "Salary_from__c": 75000,
+            "Location__c": "LATAM",
+            "Status__c": "On hold",
+            "Name": "Front-end Developer",
+            "Salary_to__c": 90000
+        },
+        {
+            "attributes": {
+                "type": "Job_Advertisement__c",
+                "referenceId": "Job_Advertisement__cRef24"
+            },
+            "Salary_from__c": 90000,
+            "Location__c": "US",
+            "Status__c": "On hold",
+            "Name": "Beer Server",
+            "Salary_to__c": 120000
+        }
+    ]
+}

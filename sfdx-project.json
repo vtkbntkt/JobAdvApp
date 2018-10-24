@@ -1,0 +1,11 @@
+{
+  "packageDirectories": [
+    {
+      "path": "job-advertisement-app",
+      "default": true
+    }
+  ],
+  "namespace": "",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "43.0"
+}

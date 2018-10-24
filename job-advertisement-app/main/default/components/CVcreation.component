@@ -1,0 +1,287 @@
+<apex:component controller="CVcreationController" allowDML="true">
+    <apex:includeScript value="{!$Resource.preview_image_js}"/>    
+    <apex:attribute name="selectedJobAds" type="WrappedJobAdvertisement[]" required="true" description="Component to fill CV form"/>    
+    
+    
+    
+    
+    <div class="modal fade " id="myModal" role="dialog">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <apex:form id="theForm">       
+                    <div class="modal-header">
+                        <h4 class="modal-title">Resume</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>                           
+                    </div>                           
+                    <div class="modal-body">
+                        <apex:pageMessages />
+                        <div class="form-group">
+                            <div class="previewPhoto"></div>               
+                            <apex:image url="/sfc/servlet.shepherd/version/download/{!wrappedCV.cv.PhotoFileId__c}"
+                                        rendered="{!if((wrappedCV.cv.PhotoFileId__c== ''),false,true)}"
+                                        id="currentImage"/>                                                       
+                            <label for="uploadImageInput" class="btn btn-warning text-white">Upload Photo</label>                   
+                            <input type="file" id="uploadImageInput" style = "visibility:hidden" onchange="manageFileUploading(this.id,
+                                                                                                           '{!$Component.currentImage}',
+                                                                                                           '{!$Component.hiddenFileContent}',
+                                                                                                           '{!$Component.hiddenFileType}',
+                                                                                                           '{!$Component.hiddenFileSize}',
+                                                                                                           '{!$Component.hiddenFileName}');" /> 
+                            <apex:inputHidden value="{!wrappedCV.photoAsString}" id="hiddenFileContent"/>
+                            <apex:inputHidden value="{!wrappedCV.photoContentType}" id="hiddenFileType"/> 
+                            <apex:inputHidden value="{!wrappedCV.photoSize}" id="hiddenFileSize"/> 
+                            <apex:inputHidden value="{!wrappedCV.photoName}" id="hiddenFileName"/>
+                        </div>
+                        
+                        
+                        <hr/>
+                        <p>Personal information</p>
+                        <div class="form-row">                           
+                            <div class="form-group col-md-5">
+                                <apex:inputText value="{!wrappedCV.cv.First_Name__c}" styleClass="form-control" html-placeholder="First name"/> 
+                            </div>
+                            <div class="form-group col-md-5">
+                                <apex:inputText value="{!wrappedCV.cv.Last_Name__c}" styleClass="form-control" html-placeholder="Last name"/> 
+                            </div>
+                            <div class="form-group col-md-2">
+                                <apex:inputText value="{!wrappedCV.cv.Age__c}" styleClass="form-control" html-placeholder="Age"/>
+                            </div>
+                        </div>
+                        <hr/>
+                        <p>Contact information</p>
+                        
+                        <div class="form-row">                           
+                            <div class="form-group col-md-6">
+                                <apex:inputText value="{!wrappedCV.cv.Phone__c}" styleClass="form-control" html-placeholder="Phone"/>
+                            </div>
+                            <div class="form-group col-md-6">
+                             <apex:inputText value="{!wrappedCV.cv.Email__c}" styleClass="form-control" html-placeholder="Email"/>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">                           
+                            <div class="form-group col-md-6">
+                                <apex:inputText value="{!wrappedCV.cv.Country__c}" styleClass="form-control" html-placeholder="Country"/>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <apex:inputText value="{!wrappedCV.cv.Zip_Postal_Code__c}" styleClass="form-control" html-placeholder="Zip code"/>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">                           
+                            <div class="form-group col-md-6">
+                                <apex:inputText value="{!wrappedCV.cv.State_Province__c}" styleClass="form-control" html-placeholder="State/province"/>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <apex:inputText value="{!wrappedCV.cv.City__c}" styleClass="form-control" html-placeholder="City"/>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <apex:inputText value="{!wrappedCV.cv.Street_Address__c}" styleClass="form-control" html-placeholder="Street address"/>
+                            
+                        </div>
+                        
+                        <hr/>
+                        <div class="form-group"> 
+                            <label for="educationSelectorId">Choose your education</label>
+                            <apex:inputField value="{!wrappedCV.cv.Education__c}" styleClass="form-control" id="educationSelectorId"/>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="form-check">
+                                <apex:inputCheckbox value="{!wrappedCV.cv.Currently_Employed__c}" styleClass="form-check-input" id="currentlyEmployedFieldId"/>
+                                <label class="form-check-label" for="currentlyEmployedFieldId">Currently employed</label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <apex:inputText value="{!wrappedCV.cv.Years_of_Experience__c}" styleClass="form-control" html-placeholder="Years of experience"/>
+                        </div>
+                        
+                        <div class="form-group">
+                            <apex:inputText value="{!wrappedCV.cv.Salary__c}" styleClass="form-control" html-placeholder="Preffered salary"/>
+                        </div> 
+                        
+                        <div class="form-group">
+                            <apex:inputField value="{!wrappedCV.cv.Additional_Info__c}" styleClass="form-control" html-placeholder="Additional Information"/>
+                        </div>                        
+                    </div>
+                    
+                    <div class="modal-footer">                      
+                        <apex:commandButton value="Send CV" action="{!applyCV}" styleClass="btn btn-warning text-white" reRender="theForm"/>           
+                    </div>
+                    
+                </apex:form>
+            </div>
+        </div>
+    </div>
+    
+    
+    <style>
+        img {
+        max-width: 200px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        }         
+    </style>
+    
+    <script>    
+    var inputFile;  //uploadInput
+    var currentImage;
+    var previewDiv; //preview //previewPhoto - class    
+    var inputFileHidden;
+    var fileTypeHidden;
+    var fileSizeHidden;
+    var fileNameHidden;
+    var fileSizeLimit = 1048576;
+    //alert('here');
+    
+    function manageFileUploading(inputFileId, 
+                                 currImgId, 
+                                 inputFileHiddenId, 
+                                 fileTypeHiddenId, 
+                                 fileSizeHiddenId, 
+                                 fileNameHiddenId){
+        inputFile = document.getElementById(inputFileId); 
+        console.log('init inputFile '+inputFile.id);
+        //console.log('*** img id '+currImgId);
+        currentImage = document.getElementById(currImgId);
+        console.log('init currentImage '+currentImage);
+        previewDiv = document.querySelector('.previewPhoto'); 
+        console.log('init previewDiv '+previewDiv.className);
+        inputFileHidden = document.getElementById(inputFileHiddenId);
+        console.log('init inputFileHidden '+inputFileHidden.id);
+        fileTypeHidden = document.getElementById(fileTypeHiddenId);
+        console.log('init fileTypeHidden '+fileTypeHidden.id);
+        fileSizeHidden = document.getElementById(fileSizeHiddenId);
+        console.log('init fileSizeHidden '+fileSizeHidden.id);
+        fileNameHidden = document.getElementById(fileNameHiddenId);
+        console.log('init fileSizeHidden '+fileNameHidden.id);
+        //input.addEventListener('change', updateImageDisplay);
+        updateImageDisplay();       
+    }
+    
+    function updateImageDisplay(){       
+        clearImgBlock();      
+        var curFiles = inputFile.files;
+        if(curFiles.length === 0) {
+            console.log('no files');
+            var paragraph = document.createElement('p');
+            paragraph.textContent = 'No files selected';
+            previewDiv.appendChild(paragraph);
+        }
+        else{ 
+            console.log('files exists');
+            var paragraph = document.createElement('p');           
+            if(validFileType(curFiles[0])){
+                console.log('files valid types');
+                var fileSize = curFiles[0].size;
+                
+                if (fileSize>fileSizeLimit){
+                    console.log('Invalid size'); 
+                    paragraph.textContent = 'Error: Maximum size- '+fileSizeLimit +' bytes';
+                    previewDiv.appendChild(paragraph);
+                }
+                else{
+                    console.log('All good start filling');
+                    var file = curFiles[0];
+                    var reader  = new FileReader();        
+                    reader.onloadend = function () {
+                        
+                        console.log('--->onloadend');
+                        inputFileHidden.value = reader.result;
+                        fileTypeHidden.value = file.type;
+                        fileSizeHidden.value = file.size;
+                        fileNameHidden.value = file.name;
+                        
+                        //paragraph.textContent = 'File ' + file.name + ', size ' + returnFileSize(file.size) + '.';
+                        var image = document.createElement('img');
+                        image.src = window.URL.createObjectURL(file);
+                        previewDiv.appendChild(image);
+                        //previewDiv.appendChild(paragraph);
+                        if(currentImage){
+                            currentImage.style.display = "none";
+                        }
+                        console.log('--->onloadend is finished');                                       
+                    }
+                    console.log('--->run reader');
+                    reader.readAsDataURL(file);
+                    console.log('--->end reader');
+                }                  
+            }           
+            else{
+                console.log('files invalid types');
+                paragraph.textContent = 'File ' + curFiles[0].name + ': Invalid type'; 
+                previewDiv.appendChild(paragraph);
+            }
+            //preview.appendChild(paragraph);          
+        }     
+    }
+    
+    
+    function clearImgBlock(){
+        console.log('clearImgBlock ');        
+        while(previewDiv.firstChild) {
+            console.log('clearImgBlock---> was cleared '+previewDiv.firstChild);
+            previewDiv.removeChild(previewDiv.firstChild);
+        }        
+    }
+    
+    var fileTypes = [
+        'image/jpeg',
+        'image/pjpeg',
+        'image/png'
+    ]
+    
+    function validFileType(file) {
+        console.log('validFileType ');
+        for(var i = 0; i < fileTypes.length; i++) {
+            if(file.type === fileTypes[i]) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    function returnFileSize(number) {
+        console.log('returnFileSize ');
+        if(number < 1024) {
+            return number + 'bytes';
+        } else if(number > 1024 && number < 1048576) {
+            return (number/1024).toFixed(1) + 'KB';
+        } else if(number > 1048576) {
+            return (number/1048576).toFixed(1) + 'MB';
+        }
+    }   
+    
+    
+    /*function fillHiddenFields(file, fileHiddenId, fileTypeHiddenId, fileSizeHiddenId, fileNameHiddenId){
+        var fileHidden = document.getElementById(fileHiddenId);
+        var fileTypeHidden = document.getElementById(fileTypeHiddenId);
+        var fileSizeHidden = document.getElementById(fileSizeHiddenId);
+        var fileNameHidden = document.getElementById(fileNameHiddenId);
+        
+        var reader  = new FileReader();        
+        reader.addEventListener("load", function () {
+            fileHidden.value = reader.result;
+            fileTypeHidden.value = file.type;
+            fileSizeHidden.value = file.size;
+            fileNameHidden.value = file.name;
+            console.log(fileHidden.value);
+        }, false);
+        
+        if (file) {
+            reader.readAsDataURL(file);
+        }       
+    } */
+    
+    
+    
+    //var inputId = 'uploadImageInput';
+    //var currentImageId = '{!$Component.theForm.currentImage}';
+    //initPreview(inputId,currentImageId); 
+    
+    </script>
+</apex:component>

@@ -1,0 +1,213 @@
+<apex:page controller="JobAdvertisementSiteController"  showHeader="false" standardStylesheets="false" id="job_advertisement_site_page" docType="html-5.0">
+    <apex:includeScript value="{! $Resource.jQuery }"/>
+    <apex:stylesheet value="{!$Resource.bootstrap_css}" />
+    <apex:includeScript value="{! $Resource.bootstrap_js }"/> 
+    <apex:stylesheet value="{!$Resource.awesome_css}" />    
+    <apex:stylesheet value="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>  
+    
+    
+    <apex:form id="main_form">
+       
+        <div class="jumbotron text-center" style="margin-bottom:0">
+            <h1>Job Advertisements</h1> 
+        </div>       
+        <div class="container" style="margin-top:30px">
+            <div class="row">               
+                <div class="col-xl-8 "> 
+                    
+                    
+                    <!-- Filter Panel -->
+                    
+                    <apex:pageBlock id="filterPanel">
+                        <div class="input-group">
+                            <apex:inputText value="{!advFilter.filterItems['jobTitle'].value}" styleClass="form-control" html-placeholder="Name of the Vacancy"/>                                                                     
+                            <apex:inputText value="{!advFilter.filterItems['creationDate'].value}" styleClass="form-control" html-placeholder="Published date"
+                                            onfocus="(this.type='date')" onblur="(this.type='text')"/>                                                
+                            <apex:selectList value="{!advFilter.filterItems['salaryConditions'].values}" multiselect="false" size="1" styleClass="form-control">
+                                <apex:selectOptions value="{!advFilter.filterItems['salaryConditions'].options}" />               
+                            </apex:selectList>
+                            <apex:inputText value="{!advFilter.filterItems['salaryValue'].value}" styleClass="form-control" html-placeholder="Salary"/>                        
+                            <apex:commandButton value="Search" action="{!applyFilters}" rerender="filteredJobAdvertisements" styleClass="btn btn-warning text-white"/>                                                  
+                        
+                        
+                        
+                        
+                        </div>
+                    </apex:pageBlock>
+                    <br/>   
+                    
+                    
+                    <!-- Filtered job advertisements -->
+                    <apex:pageBlock id="filteredJobAdvertisements">                   
+                        <div class="accordion" id="filteredAdAccordion">
+                            <apex:repeat value="{!wrappedAds}" var="wrappedAdv">                           
+                                <div class="card">       
+                                    <div class="card-header bg-white">                                   
+                                        <div class="row">
+                                            <div class="col-xl-10 ">
+                                                <apex:outputText value="{!wrappedAdv.adv.name}" styleClass=" font-weight-bold" /><br/>
+                                                <apex:outputText value="{!wrappedAdv.adv.Salary_from__c}" /> -
+                                                <apex:outputText value="{!wrappedAdv.adv.Salary_to__c}" /><br/>
+                                                <apex:outputText value="{!wrappedAdv.adv.Location__c}" /><br/>
+                                                <apex:outputText value="{!wrappedAdv.isSelected}" /><br/>
+                                            </div>
+                                            <div class="col-xl-2 " >                                           
+                                                <p class="btn collapsed  float-right" data-toggle="collapse" href="#{!wrappedAdv.adv.id}" >                                              
+                                                    <i class="fas fa-chevron-down fa-2x" style="color: grey" id="icoChevron{!wrappedAdv.adv.id}" onclick="changeChevronIco(this)"></i>
+                                                </p>                                          
+                                            </div> 
+                                        </div>
+                                    </div>
+                                    <div id="{!wrappedAdv.adv.id}" class="collapse" data-parent="#filteredAdAccordion">
+                                        <div class="card-body bg-info">                                            
+                                            <apex:outputText value="{!wrappedAdv.adv.name}" /><br/>
+                                            <apex:outputText value="{!wrappedAdv.adv.Salary_from__c}" />-
+                                            <apex:outputText value="{!wrappedAdv.adv.Salary_to__c}" /><br/>
+                                            <apex:outputText value="{!wrappedAdv.adv.Location__c}" /><br/>
+                                            <apex:outputText value="{!wrappedAdv.adv.Status__c}" />                                            
+                                            <apex:commandButton value="{!IF((wrappedAdv.isSelected),'Selected','Select')}"
+                                                                action="{!addToSelectedList}"
+                                                                reRender="filteredJobAdvertisements, selectedJobAdvertisements"
+                                                                styleClass="btn btn-warning text-white float-right"
+                                                                disabled="{!IF((wrappedAdv.isSelected),'true','false')}">
+                                                <apex:param name="selectedJobAdvId" value="{!wrappedAdv.adv.id}" />                                                
+                                            </apex:commandButton>                                             
+                                        </div>
+                                    </div>
+                                </div> 
+                                <br/>
+                            </apex:repeat>                        
+                        </div>                     
+                    </apex:pageBlock>
+                </div>
+                
+                
+                <!-- Right header for selected list -->                
+                <div class="col-xl-4 "> 
+                    <apex:pageBlock id="selectedJobAdvertisements">
+                        <div class="row">                        
+                            <div class="col-xl-5 ">
+                                <apex:outputText value="Selected jobs" styleClass=" font-weight-bold w-100 p-1 " />                           
+                            </div>                       
+                            <div class="col-xl-2 ">                              
+                                <div style="border-radius:160px; background-color:orange; text-align:center; color:white">
+                                    {!selectedwrappedAds.size}
+                                </div>
+                                
+                            </div>                      
+                            <div class="col-xl-5 ">                                   
+                                <button type="button" class="btn btn-warning text-white w-auto h-75 float-right" data-toggle="modal" data-target="#myModal">Apply</button>                               
+                            </div>                        
+                        </div>
+                        
+                        
+                        <!-- Selected list --> 
+                         
+                        <apex:repeat value="{!selectedwrappedAds}" var="selectedWrappedAdv"> 
+                            <div class="card">                       
+                                <div class="card-body">                            
+                                    <apex:commandLink action="{!removeFromSelectedList}"                                                      
+                                                      styleClass="close"
+                                                      reRender="selectedJobAdvertisements, filteredJobAdvertisements"
+                                                      >&times;
+                                        <apex:param name="removedJobAdvId" value="{!selectedWrappedAdv.adv.id}" />
+                                    </apex:commandLink>                                                     
+                                    <apex:outputText value="{!selectedWrappedAdv.adv.name}" /><br/>
+                                    <apex:outputText value="{!selectedWrappedAdv.adv.Salary_from__c}" />-
+                                    <apex:outputText value="{!selectedWrappedAdv.adv.Salary_to__c}" /><br/>
+                                    <apex:outputText value="{!selectedWrappedAdv.adv.Location__c}" /><br/> 
+                                    <apex:outputText value="{!selectedWrappedAdv.isSelected}" /><br/> 
+                                </div>
+                            </div>
+                            <br/>
+                        </apex:repeat>
+                    </apex:pageBlock>
+                    
+                    
+                    <!-- Pagination -->
+                    <apex:pageBlock id="paginationPanel">
+                        <div class="fixed-bottom" style="right:auto;left:auto">
+                            <nav >                           
+                                <ul class="pagination">                                                                     
+                                    <li class="page-item bg-warning  text-white" >
+                                        Page: <apex:outputText value=" {!PageNumber} of {! CEILING(ResultSize / PageSize) }"/>                                                                           
+                                    </li>                                
+                                    <li class="page-item">
+                                        <apex:selectList value="{! PageSize }" size="1" styleClass="page-link text-white bg-warning h-100">
+                                            <apex:selectOption itemValue="10" itemLabel="10"/>
+                                            <apex:selectOption itemValue="15" itemLabel="15"/>
+                                            <apex:selectOption itemValue="20" itemLabel="20"/>
+                                            <apex:selectOption itemValue="25" itemLabel="25"/>
+                                            <apex:actionSupport event="onchange" reRender="filteredJobAdvertisements,paginationPanel"/>
+                                        </apex:selectList>                                   
+                                    </li>                                
+                                    <li class="page-item">                                   
+                                        <apex:commandLink action="{! first}"
+                                                          value="First"
+                                                          reRender="filteredJobAdvertisements,paginationPanel"
+                                                          styleClass="page-link text-white bg-warning h-100"/>
+                                    </li>
+                                    <li class="page-item">
+                                        <apex:commandLink action="{! Previous }"
+                                                          value="Previous"
+                                                          rendered="{! HasPrevious }"
+                                                          reRender="filteredJobAdvertisements,paginationPanel"
+                                                          styleClass="page-link text-white bg-warning h-100"/>
+                                    </li>
+                                    <li class="page-item">
+                                        <apex:commandLink action="{! Next }"
+                                                          value="Next"
+                                                          rendered="{! HasNext }"
+                                                          reRender="filteredJobAdvertisements,paginationPanel"
+                                                          styleClass="page-link text-white bg-warning h-100"/>
+                                    </li>
+                                    <li class="page-item">
+                                        <apex:commandLink action="{! last}"
+                                                          value="Last"
+                                                          rendered="{! HasNext }"
+                                                          reRender="filteredJobAdvertisements,paginationPanel"
+                                                          styleClass="page-link text-white bg-warning h-100"/>
+                                        
+                                    </li>
+                                </ul>
+                            </nav>                       
+                        </div>
+                        
+                    </apex:pageBlock>
+                </div>                
+            </div>
+        </div>             
+        </apex:form>       
+                    <c:CVcreation selectedJobAds="{!selectedwrappedAds}"/>
+    
+    <!-- Fill CV -->    
+    <style>
+    .errorMsg {
+    color: red;
+}
+    
+    
+    </style> 
+    
+    <script>    
+    function changeChevronIco(e){
+        var icoDownClass = 'fas fa-chevron-down fa-2x';
+        var icoUpClass = 'fas fa-chevron-up fa-2x';       
+        if(e.className==icoDownClass){
+            e.className=icoUpClass;
+        }
+        else{
+            e.className=icoDownClass;
+        }       
+        var faArr = document.getElementsByClassName("fas");       
+        for (var i = 0; i < faArr.length; i++) {
+            if(faArr[i].id!=e.id){
+                if(faArr[i].className==icoUpClass){
+                    faArr[i].className=icoDownClass;
+                }
+            }
+            
+        }  
+    }    
+    </script>    
+</apex:page>
