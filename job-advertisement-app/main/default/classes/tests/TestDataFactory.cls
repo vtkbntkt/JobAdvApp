@@ -22,6 +22,19 @@ public class TestDataFactory {
         return cv;
     }
 
+    public static List<SentResume__c> getSentResumesByJobAdsAndCV(List<Job_Advertisement__c> jobAds, Resume__c resume, Boolean isInsert){
+        Id resumeId = resume.id;
+        List<SentResume__c> resumes = new List<SentResume__c>();
+        for(Job_Advertisement__c jobAdv:jobAds){
+            resumes.add(new SentResume__c(Job_Advertisement__c = jobAdv.id, Resume__c = resumeId));
+        }
+        if(isInsert){
+            insert resumes;
+        }
+        return resumes;
+
+    }
+
     public static List<Job_advertisement__c> prepareJobAdsList(Integer num, Boolean ifInsert){
      List<Job_Advertisement__c> jobAds = new List<Job_Advertisement__c>();
         for(Integer i=0;i<num;i++){
@@ -49,7 +62,27 @@ public class TestDataFactory {
             }         
         }
        return titles.size()==0; 
-    }    
+    }  
+
+
+    public static ContentVersion getContentVersion(String fileName, Blob fileContent){
+        ContentVersion contentVersion = new ContentVersion();
+        contentVersion.versionData = fileContent;
+        contentVersion.title = fileName;
+        contentVersion.pathOnClient =fileName;
+        return contentVersion;       
+    }
+
+
+    public static ContentDocumentLink getContentDocLink(Id contentDocId, String shareType, String visibility, id linkedEntityId){
+        ContentDocumentLink contentDocLink = new ContentDocumentLink();
+        contentDocLink.ContentDocumentId = contentDocId;
+        contentDocLink.LinkedEntityId = linkedEntityId;
+        contentDocLink.ShareType = shareType; 
+        contentDocLink.Visibility = visibility;
+        return contentDocLink;
+    }
+
     
     
     public class ExpandedStringList {

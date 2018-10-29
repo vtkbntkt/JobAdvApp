@@ -11,4 +11,7 @@ public class Constants {
     public static final String REGEX_EMAIL = '([a-zA-Z0-9_\\-\\.]+)@((\\[a-z]{1,3}\\.[a-z]{1,3}\\.[a-z]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})';
     public static final String REGEX_PHONE = '\\D*?(\\d\\D*?){10}';
 
+    public static final String EMAIL_SEND_CV_NOTIFICATION_SUBJECT = 'Resume notification';
+    public static final String EMAIL_SEND_CV_NOTIFICATION_BODY_HEADER = 'Hi man,'+'\n'+'Your resume received and will be reviewed soon.'+'\n';
+
 }

@@ -12,9 +12,10 @@ private class CVcreationControllerTest {
      //When
      Test.startTest();
      controller.applyCV();
-     Test.stopTest();
 
      //Then
+     System.assertEquals(1,Limits.getEmailInvocations());
+     Test.stopTest();
      List<Apexpages.Message> msgs = ApexPages.getMessages();      
         boolean result = false;       
         for(Apexpages.Message msg:msgs){           
@@ -226,6 +227,10 @@ private class CVcreationControllerTest {
             if(testDataSet.containsKey('exc')){
                 throw (ResumeServiceImplException)testDataSet.get('exc');
             }
+        }
+
+        public String getResumesAndJobAdsByResumeCreatedDate(String createdDate){
+            return null;
         }
     }
 

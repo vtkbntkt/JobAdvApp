@@ -86,7 +86,6 @@ public class Query {
         for(Integer i=0;i<pointerNumber;i++){
             values.add(valueForAllPointers);   
         }
-        
         return appendByPointer(expression, values);       
     }
     
@@ -94,7 +93,6 @@ public class Query {
         if(value.equals(SOQLConstants.STATEMENT_WHERE) && query.contains(SOQLConstants.STATEMENT_WHERE)){
             return false;
         }
-        
         return true;
     }
     
@@ -102,14 +100,8 @@ public class Query {
         return query;
     }
     
-    
-    
     public class ExpandedStringList {
         private List<String> values;
-        
-        public ExpandedStringList(){
-            values = new List<String>();
-        }
         
         public ExpandedStringList(String value){
             values = new List<String>();
@@ -124,7 +116,6 @@ public class Query {
         public List<String> getList(){
             return values;
         }
-        
     }
     
     

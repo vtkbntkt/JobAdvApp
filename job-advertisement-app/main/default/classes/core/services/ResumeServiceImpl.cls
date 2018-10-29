@@ -3,6 +3,7 @@ public class ResumeServiceImpl implements IresumeService {
     public void addResumeWithJobAds(Resume__c cv, List<Job_Advertisement__c> jobAds){
        Savepoint savePoint = Database.setSavepoint();
         try{
+            
            upsert cv cv.email__c;
            insert prepareSentResumes(jobAds,cv);           
         }
@@ -10,6 +11,26 @@ public class ResumeServiceImpl implements IresumeService {
             Database.rollback(savePoint);
             throw new ResumeServiceImplException(exc.getMessage(),exc);
         }
+    }
+
+    public String getResumesAndJobAdsByResumeCreatedDate(String createdDate){
+     List<Resume__c> resumes = new List<Resume__c>();
+     List<ContentVersion> contentVersions = new List<ContentVersion>();
+     String resumeJson;
+     try{
+         resumes =  Database.query(QueryBuilder.getResumeQueryByCreatedDateParam(createdDate));
+         if(!resumes.isEmpty()){
+            contentVersions =  getResumePhotoDetails(resumes);
+            List<ResumeDTO> resumesDto = Utils.resumes2resumesDTO(resumes, contentVersions);
+            resumeJson =  JSON.serialize(resumesDto);
+         }
+     }
+     catch(QueryException exc){
+        throw new ResumeServiceImplException(exc);
+     }
+        return resumeJson;
+    
+
     }
 
     public void attachPhotoToResume(Resume__c cv, String fileId){
@@ -30,6 +51,17 @@ public class ResumeServiceImpl implements IresumeService {
         }
         return sentResumes;
     }
+
+    private List<ContentVersion> getResumePhotoDetails(List<Resume__c> resumes){
+        List<Id> contentVersionIds = new List<String>();
+        for(Resume__c resume:resumes){
+            contentVersionIds.add(resume.PhotoFileId__c);
+        }
+        return [SELECT Title, versionData FROM ContentVersion WHERE id IN : contentVersionIds];
+      
+    }
+
+    
     
     
    

@@ -17,7 +17,7 @@ public class CVcreationController {
         context = ControllerContext.getInstance();
     }
    
-    public void applyCV(){  
+    public PageReference applyCV(){  
         List<WrappedJobAdvertisement> selectedwrappedAds =
         (List<WrappedJobAdvertisement>) context.get(Constants.CONTEXT_SELECTED_JOB_ADV);
         List<String> errors = validator.validate(wrappedCV);
@@ -30,7 +30,14 @@ public class CVcreationController {
                     try{
                         cvService.addResumeWithJobAds(wrappedCV.cv,selectedAds.values());                        
                         cvService.attachPhotoToResume(wrappedCV.cv, savePhoto());
+                        sendNotification(selectedAds.values(), wrappedCV.cv.Email__c);
                         ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.CONFIRM, System.Label.Msg_success_cv_send));
+                        wrappedCV.clearPhotoDetails();
+                        PageReference pageRef = Page.JobAdvertisementSite;
+                        pageRef.setRedirect(true);
+                        return pageRef;
+                       
+
                     }
                     catch(ResumeServiceImplException exc){
                         Database.rollback(savePoint);
@@ -57,7 +64,18 @@ public class CVcreationController {
             addErrors(errors);    
         }       
         wrappedCV.clearPhotoDetails();
+        return null;
                
+    }
+
+    private void sendNotification(List<Job_Advertisement__c> jobAds, String mailAddress){
+        String mailBody = Constants.EMAIL_SEND_CV_NOTIFICATION_BODY_HEADER;
+        for(Job_Advertisement__c jobAdv:jobAds){          
+            mailBody+=jobAdv.name+'\n';
+        }
+        EmailManager.EmailAddress addresses = new EmailManager.EmailAddress();
+        addresses.to.add(mailAddress); 
+        EmailManager.sendMail(addresses, Constants.EMAIL_SEND_CV_NOTIFICATION_SUBJECT, mailBody); 
     }
 
     private String savePhoto(){

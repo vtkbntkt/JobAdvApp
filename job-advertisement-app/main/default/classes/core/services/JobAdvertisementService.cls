@@ -40,9 +40,7 @@ public class JobAdvertisementService {
     public void removeJobAdvertisementByJson(String httpBody){
         Map<String, Job_Advertisement__c> jobAds = new Map<String, Job_Advertisement__c>();
         try{
-            System.debug(httpBody);
             jobAds = Utils.blob2JobAdsWithIds(httpBody);
-            System.debug(jobAds);
             delete jobAds.values(); 
         }
         catch(JsonException exc){

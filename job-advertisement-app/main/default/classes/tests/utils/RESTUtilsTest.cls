@@ -77,5 +77,37 @@ private class RESTUtilsTest {
         System.assertEquals(responseMsg, response.responseBody.toString());
        
     }
+
+     @IsTest static void test_getErrorResponse_InvalidParamsException(){
+        //Given
+        RestResponse response = new RestResponse();
+        Exception exc = new InvalidParamsException();
+        Integer responseCode = 400;
+        String responseMsg = 'Invalid request params';
+        
+        //When
+        response = RESTUtils.getErrorResponse(response,exc);
+        
+        //Then 
+        System.assertEquals(responseCode, response.statusCode); 
+        System.assertEquals(responseMsg, response.responseBody.toString());
+       
+    }
+
+    @IsTest static void test_getErrorResponse_InvalidMethodException(){
+        //Given
+        RestResponse response = new RestResponse();
+        Exception exc = new InvalidMethodException();
+        Integer responseCode = 405;
+        String responseMsg = 'Method Not Allowed';
+        
+        //When
+        response = RESTUtils.getErrorResponse(response,exc);
+        
+        //Then 
+        System.assertEquals(responseCode, response.statusCode); 
+        System.assertEquals(responseMsg, response.responseBody.toString());
+       
+    }
     
 }

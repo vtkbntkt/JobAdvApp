@@ -9,12 +9,6 @@ public class SelectList implements FilterItemInterface {
         initOptions(optionMap);
     }
     
-    public SelectList (List<SelectOption> options){
-        values = new List<String>();
-        options = new List<SelectOption>();
-        this.options = options;
-    }
-    
     public SelectList (List<Schema.PicklistEntry> pickList){
         values = new List<String>();
         options = new List<SelectOption>();

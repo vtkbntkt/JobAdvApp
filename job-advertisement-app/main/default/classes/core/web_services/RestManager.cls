@@ -5,6 +5,8 @@ public class RestManager {
      
     public RestManager() {
         webServices.put(WebServiceConstants.WEBSERVICE_JOB_ADVERTISEMENT, new JobAdvertisementWebService());
+        webServices.put(WebServiceConstants.WEBSERVICE_RESUME, new ResumeWebService());
+
     }
     
     public RestInterface getWebService(RestRequest request) {

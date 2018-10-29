@@ -35,10 +35,31 @@ private class RestManagerTest {
         webServiceX = restManager.getWebService(request);
         
         //Then
-        System.assert(webServiceX instanceof JobAdvertisementWebService);        
+        System.assert(webServiceX instanceof JobAdvertisementWebService); 
+
+
+        //Given  - case 4     
+        URI = '/Resume';
+        request.requestURI =URI; 
+        
+        //When
+        webServiceX = restManager.getWebService(request);
+        
+        //Then
+        System.assert(webServiceX instanceof ResumeWebService);   
+
+        //Given  - case 5    
+        URI = '/Resume/params?...';
+        request.requestURI =URI; 
+        
+        //When
+        webServiceX = restManager.getWebService(request);
+        
+        //Then
+        System.assert(webServiceX instanceof ResumeWebService);      
     }
     
-    @IsTest static void test_getWebServiceCorrectlyExc(){
+    @IsTest static void test_getWebServiceExc(){
         //Given        
         String URI = '';
         RestRequest request = new RestRequest();
