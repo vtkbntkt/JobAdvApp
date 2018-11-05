@@ -229,7 +229,11 @@ private class CVcreationControllerTest {
             }
         }
 
-        public String getResumesAndJobAdsByResumeCreatedDate(String createdDate){
+        public String getResumesAndJobAdsByResumeCreatedDate(String createdDate, Integer pageNumber, Integer pageSize){
+            return null;
+        }
+
+        public String getResumesAndJobAdsNumberByResumeCreatedDate(String createdDate){
             return null;
         }
     }

@@ -21,6 +21,7 @@ public class SOQLConstants {
     public static final String QUERY_BASE_EXP_RESUMES_WITH_JOB_ADS = 'SELECT (SELECT Job_Advertisement__r.id FROM SentResumes__r),'+ 
     'First_Name__c,Last_Name__c,Age__c,Phone__c,Email__c,Education__c,Currently_Employed__c,Country__c,City__c,State_Province__c,'+
     'Zip_Postal_Code__c,Street_Address__c,Salary__c,Years_of_Experience__c,Additional_Info__c,PhotoFileId__c FROM Resume__c';
+    public static final String QUERY_BASE_EXP_RESUMES_NUMBER = 'SELECT COUNT() FROM Resume__c';
     public static final String QUERY_OPERATOR_ANY = '%';
     public static final String QUERY_OPERATOR_EQUAL = '=';
     public static final String TIME_ADDITION = 'T23:59:59Z';

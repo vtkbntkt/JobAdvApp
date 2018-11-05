@@ -13,13 +13,17 @@ public class ResumeServiceImpl implements IresumeService {
         }
     }
 
-    public String getResumesAndJobAdsByResumeCreatedDate(String createdDate){
+    
+
+    public String getResumesAndJobAdsByResumeCreatedDate(String createdDate, Integer pageNumber, Integer pageSize){
      List<Resume__c> resumes = new List<Resume__c>();
      List<ContentVersion> contentVersions = new List<ContentVersion>();
      String resumeJson;
      try{
-         resumes =  Database.query(QueryBuilder.getResumeQueryByCreatedDateParam(createdDate));
+         //resumes =  Database.query(QueryBuilder.getResumeQueryByCreatedDateParam(createdDate));
+         resumes =  extractResumesByPageNumber(QueryBuilder.getResumeQueryByCreatedDateParam(createdDate),pageNumber, pageSize);
          if(!resumes.isEmpty()){
+            //resumes = extractResumesByPageNumber(resumes,pageNumber,pageSize);
             contentVersions =  getResumePhotoDetails(resumes);
             List<ResumeDTO> resumesDto = Utils.resumes2resumesDTO(resumes, contentVersions);
             resumeJson =  JSON.serialize(resumesDto);
@@ -28,9 +32,12 @@ public class ResumeServiceImpl implements IresumeService {
      catch(QueryException exc){
         throw new ResumeServiceImplException(exc);
      }
-        return resumeJson;
-    
+    return resumeJson;
 
+    }
+
+    public String getResumesAndJobAdsNumberByResumeCreatedDate(String createdDate){
+        return String.valueOf(Database.countQuery(QueryBuilder.getResumeNumberQueryByCreatedDateParam(createdDate)));
     }
 
     public void attachPhotoToResume(Resume__c cv, String fileId){
@@ -61,11 +68,21 @@ public class ResumeServiceImpl implements IresumeService {
       
     }
 
-    
-    
-    
-   
-    
-    
+   /* private List<Resume__c> extractResumesByPageNumber(List<Resume__c> originList, Integer pageNumber, Integer pageSize){
+        List<Resume__c> outputList = new List<Resume__c>();
+        Integer startIndex = (pageNumber-1)*pageSize;
+        Integer endIndex = originList.size()<pageSize*pageNumber?originList.size():startIndex+pageSize;
+        for (Integer i=startIndex;i<endIndex;i++){
+            outputList.add(originList.get(i));  
+        }
+        return outputList;
+    }*/
+
+    private List<Resume__c> extractResumesByPageNumber(String query, Integer pageNumber, Integer pageSize){
+        ApexPages.StandardSetController setController = new ApexPages.StandardSetController(Database.getQueryLocator(query));
+        setController.setPageSize(pageSize);
+        setController.setPageNumber(pageNumber);
+        return setController.getRecords();
+    }
 
 }

@@ -95,4 +95,12 @@ public class QueryBuilder {
         .appendByPointer(SOQLConstants.CUSTOM_EXPRESSIONS.get('EXP_CREATED_DATE_EQUAL'), createdDate);
         return query.getQueryAsString();
     }
+
+    public static String getResumeNumberQueryByCreatedDateParam(String createdDate){
+    Query query = new Query();
+        query.append(SOQLConstants.QUERY_BASE_EXP_RESUMES_NUMBER)
+        .appendSpace().append(SOQLConstants.STATEMENT_WHERE).appendSpace()
+        .appendByPointer(SOQLConstants.CUSTOM_EXPRESSIONS.get('EXP_CREATED_DATE_EQUAL'), createdDate);
+        return query.getQueryAsString();
+    }
 }

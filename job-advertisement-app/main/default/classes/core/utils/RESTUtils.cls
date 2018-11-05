@@ -10,6 +10,7 @@ public class RESTUtils {
     public static final String STATUS_SUCCESS = 'The operation is successful';
     public static final String STATUS_NO_RESULTS = 'No results';
     public static final String PARAMS_CREATED_DATE = 'createdDate';
+    public static final String PARAMS_PAGE_NUMBER = 'pageNumber';
     public static final Integer STATUS_CODE_BAD_REQUEST = 400;
     public static final Integer STATUS_CODE_SUCCESS = 200;
     public static final Integer STATUS_CODE_ISE = 500;

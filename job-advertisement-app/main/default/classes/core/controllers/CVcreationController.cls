@@ -16,6 +16,7 @@ public class CVcreationController {
         wrappedCV = new WrappedCV();
         context = ControllerContext.getInstance();
     }
+
    
     public PageReference applyCV(){  
         List<WrappedJobAdvertisement> selectedwrappedAds =

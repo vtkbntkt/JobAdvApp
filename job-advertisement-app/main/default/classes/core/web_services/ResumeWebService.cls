@@ -1,4 +1,5 @@
 public class ResumeWebService implements RestInterface {
+    public static final Integer RECORD_LIMIT = 100;
     
     private IresumeService resumeService;
      
@@ -13,20 +14,31 @@ public class ResumeWebService implements RestInterface {
     
     public void doGet(RestRequest request, RestResponse response){
         Map<String, String> params = request.params;
-        String resumes;
+        String result;
         if(params.isEmpty()){
             throw new ValidationRequestException(RESTUtils.ERROR_NO_PARAMS);
         } 
         try{
-            resumes = resumeService.getResumesAndJobAdsByResumeCreatedDate(params.get(RESTUtils.PARAMS_CREATED_DATE));
+            String pageNumber = params.get(RESTUtils.PARAMS_PAGE_NUMBER);
+            String createdDate = params.get(RESTUtils.PARAMS_CREATED_DATE);
+            if (pageNumber!=null){
+                Integer pageNumberInt = Integer.valueOf(pageNumber);
+                result = resumeService.getResumesAndJobAdsByResumeCreatedDate(createdDate, pageNumberInt, RECORD_LIMIT);
+            }
+            else{
+                result = resumeService.getResumesAndJobAdsNumberByResumeCreatedDate(createdDate);
+            }
         }
         catch(ResumeServiceImplException exc){
             throw new InvalidParamsException(exc);
         }
-        if (resumes==null){
-            resumes = RESTUtils.STATUS_NO_RESULTS;
+        catch(TypeException exc){
+            throw new ValidationRequestException(RESTUtils.ERROR_IVALID_PARAMS);
         }
-        response.responseBody = Blob.valueOf(resumes);    
+        if (result==null){
+            result = RESTUtils.STATUS_NO_RESULTS;
+        }
+        response.responseBody = Blob.valueOf(result);    
     }
         
     public void doPost(RestRequest request, RestResponse response){
